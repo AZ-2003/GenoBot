@@ -22,8 +22,8 @@ Bot = commands.Bot(command_prefix='*', intents=intent)
 load_dotenv() # Reading the .env file
 token = environ["TOKEN"]
 
-#Secondary-Function- Variables
-cities = ["Dammam", "Manama", "LosAngeles", "Dubai", "SanDiego"]
+
+
 #Recall: async functions involves using "callback"
 
 '''
@@ -79,10 +79,10 @@ Parametrs:
 Returns:
 '''
 
-'''
-@client.event
+
+@Bot.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == Bot.user:
         return
     
     #Calling Geno
@@ -105,7 +105,7 @@ async def on_message(message):
         await message.channel.send("An absolute pleasure")
 
     await Bot.process_commands(message)
-    '''
+    
     
 
 #Thought: how many more functions can we add? what will they do ?  

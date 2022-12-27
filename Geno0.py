@@ -3,13 +3,16 @@ from urllib.request import urlopen
 
 '''
 
-Description: obtains the weather forecast (in Celsius) for a set of cities
+Description: obtains the tempersture (in Celsius) for a set of cities
 Parametrs:
-    1. cities: an array of cities
+    (1) cities: an array of cities
 Returns:
-    1. weather: a dictionary of cities and their weather
+    (1) full_temp: a dictionary of cities and their temperature
 
 '''
+#Variable Declarations
+cities = ["Dammam", "Manama", "LosAngeles", "Dubai", "SanDiego"]
+
 def get_temperature_full(cities):
     full_temp ={}
     for i in range(len(cities)):
@@ -20,6 +23,16 @@ def get_temperature_full(cities):
         full_temp[cities[i]]=tempC
     return full_temp
 
+
+'''
+
+Description: obtains the temperature (in Celsius) for a designated city
+Parametrs:
+    (1) city: city name (with no spaces in between: ex: LosAngeles)
+Returns:
+    (1) tempC: a string consisting of the city's temperature
+
+'''
 def get_temperature(city):
     url = "http://wttr.in/"+city+"?format=%t"
     page= urlopen(url)
