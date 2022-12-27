@@ -1,0 +1,126 @@
+import discord
+import logging
+from os import environ
+from discord.ext import commands
+from dotenv import load_dotenv
+from urllib.request import urlopen
+from Geno0 import *
+
+# Key Variable declarations
+handler= logging.FileHandler(filename='discord.log', encoding = 'utf-8', mode = 'w')
+# What are intents?
+intent = discord.Intents.default()
+intent.message_content = True
+
+# Creating a Client/Command Instance (*+Function Name)
+Bot = commands.Bot(command_prefix='*', intents=intent)
+
+# Creating an Client Instance 
+#client = discord.Client(intents=intent) 
+
+
+
+# Obtaining the token from .env
+load_dotenv() # Reading the .env file
+token = environ["TOKEN"]
+
+#Secondary-Function- Variables
+cities = ["Dammam", "Manama", "LosAngeles", "Dubai", "SanDiego"]
+#Recall: async functions involves using "callback"
+
+'''
+Description: called when Geno is ready (? might need a better description)
+Parameters:no parameters
+Returns: no return value
+'''
+@Bot.event
+async def on_ready():
+    print(f"Geno logged in as {Bot.user}")
+    #print("Geno logged in as {0.user}".format(client))
+
+@Bot.command(name="Call")
+async def Call(ctx):
+    ctx.send("Function Call works!")
+'''
+
+Description:
+Parametrs:
+Returns:
+
+'''
+#context:
+@Bot.command(name="VoiceOn", pass_context = True)
+async def VoiceOn(ctx):
+    if(ctx.author.voice):
+        channel = ctx.author.voice.channel
+        await channel.connect()
+        await ctx.send("Voice mode on")
+    else:
+        await ctx.send("Error: You are not in a Voice Channel")
+
+'''
+
+Description:
+Parametrs:
+Returns:
+
+'''
+@Bot.command(name="VoiceOff",pass_context = True)
+async def VoiceOff(ctx):
+    if(ctx.voice_client):
+        await ctx.guild.voice_client.disconnect()
+        await ctx.send("Voice mode off")
+    else:
+        await ctx.send("Error: I am not in a Voice Channel")
+
+'''
+Description: called when particular discord messages are seen
+Parametrs: 
+Returns:
+'''
+
+'''
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    
+    #Calling Geno
+    if message.content.startswith("Geno"):
+        await message.channel.send("At your service")
+
+    #Asking about the temperature
+    if message.content.startswith("Temp"):
+        # Given no further text, temperature of select cities is provided
+        if(message.content == "Temp"):
+            daily_forecast = get_temperature_full(cities)
+            for i in cities:
+                await message.channel.send(i+":"+daily_forecast[i])
+        else:
+            daily_forecast = get_temperature(message.content.split("Temp ", 1)[1])
+            await message.channel.send(message.content.split("*Temp ", 1)[1]+":"+ daily_forecast)
+
+    #Thanking Geno
+    if message.content.startswith("Thank you"):
+        await message.channel.send("An absolute pleasure")
+
+    await Bot.process_commands(message)
+    '''
+    
+
+#Thought: how many more functions can we add? what will they do ?  
+#Thought: Eventually, we would have to break that file into modules 
+#Thought: Need to make Geno only listen to *me*
+'''
+Proposed APIs to incorporate: 
+    (1) Google Calender API
+    (2) Spotify API 
+''' 
+
+
+
+
+
+Bot.run(token, log_handler=handler, log_level=logging.DEBUG)
+
+
