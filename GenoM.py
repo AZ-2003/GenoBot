@@ -18,8 +18,6 @@ Bot = commands.Bot(command_prefix='*', intents=intent)
 # Creating an Client Instance 
 #client = discord.Client(intents=intent) 
 
-
-
 # Obtaining the token from .env
 load_dotenv() # Reading the .env file
 token = environ["TOKEN"]
@@ -43,9 +41,10 @@ async def Call(ctx):
     ctx.send("Function Call works!")
 '''
 
-Description:
+Description: allows Geno to join a Voice Channel
 Parametrs:
-Returns:
+    (1)ctx: short for context
+Returns: no return value
 
 '''
 #context:
@@ -60,9 +59,10 @@ async def VoiceOn(ctx):
 
 '''
 
-Description:
+Description: allows Geno to leave a Voice Channel
 Parametrs:
-Returns:
+    (1)ctx: short for conetxt
+Returns: no return value
 
 '''
 @Bot.command(name="VoiceOff",pass_context = True)
