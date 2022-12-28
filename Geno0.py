@@ -45,10 +45,3 @@ def get_temperature(city):
     print("temp obtained")
     return tempC     
 
-def get_time(city):
-    url = "https://times.is/"+city
-    Upage = urlopen(url)
-    page = Upage.read()
-    time = page.decode("utf-8")
-    print(time)
-    return time
