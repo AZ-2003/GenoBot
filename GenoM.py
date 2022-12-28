@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from urllib.request import urlopen
 from Geno0 import *
 
+
 # Key Variable declarations
 handler= logging.FileHandler(filename='discord.log', encoding = 'utf-8', mode = 'w')
 # What are intents?
@@ -23,7 +24,6 @@ load_dotenv() # Reading the .env file
 token = environ["TOKEN"]
 
 
-
 #Recall: async functions involves using "callback"
 
 '''
@@ -36,9 +36,10 @@ async def on_ready():
     print(f"Geno logged in as {Bot.user}")
     #print("Geno logged in as {0.user}".format(client))
 
-@Bot.command(name="Call")
+@Bot.command(name="Call", pass_context = True)
 async def Call(ctx):
-    ctx.send("Function Call works!")
+    await ctx.send("Function Call works!")
+    print(cities[0])
 '''
 
 Description: allows Geno to join a Voice Channel
@@ -75,10 +76,10 @@ async def VoiceOff(ctx):
 
 '''
 Description: called when particular discord messages are seen
-Parametrs: 
-Returns:
+Parametrs:
+    (1)message: the user input creating event
+Returns: no return value
 '''
-
 
 @Bot.event
 async def on_message(message):
@@ -93,17 +94,20 @@ async def on_message(message):
     if message.content.startswith("Temp"):
         # Given no further text, temperature of select cities is provided
         if(message.content == "Temp"):
-            daily_forecast = get_temperature_full(cities)
+            daily_forecast = get_temperature_full()
             for i in cities:
                 await message.channel.send(i+":"+daily_forecast[i])
         else:
+            #print("Singular city case")
             daily_forecast = get_temperature(message.content.split("Temp ", 1)[1])
-            await message.channel.send(message.content.split("*Temp ", 1)[1]+":"+ daily_forecast)
+            await message.channel.send(message.content.split("Temp ", 1)[1]+":"+ daily_forecast)
+
 
     #Thanking Geno
     if message.content.startswith("Thank you"):
         await message.channel.send("An absolute pleasure")
 
+    
     await Bot.process_commands(message)
     
     
@@ -116,10 +120,6 @@ Proposed APIs to incorporate:
     (1) Google Calender API
     (2) Spotify API 
 ''' 
-
-
-
-
 
 Bot.run(token, log_handler=handler, log_level=logging.DEBUG)
 

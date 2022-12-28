@@ -13,12 +13,13 @@ Returns:
 #Variable Declarations
 cities = ["Dammam", "Manama", "LosAngeles", "Dubai", "SanDiego"]
 
-def get_temperature_full(cities):
+
+def get_temperature_full():
     full_temp ={}
     for i in range(len(cities)):
         url = "http://wttr.in/"+cities[i]+"?format=%t"
-        page= urlopen(url)
-        page = page.read()
+        Upage= urlopen(url)
+        page = Upage.read()
         tempC = page.decode("utf-8")
         full_temp[cities[i]]=tempC
     return full_temp
@@ -34,8 +35,20 @@ Returns:
 
 '''
 def get_temperature(city):
+    print("obtaining url")
     url = "http://wttr.in/"+city+"?format=%t"
-    page= urlopen(url)
-    page = page.read()
+    print("url obtained")
+    Upage= urlopen(url)
+    print("url opened")
+    page = Upage.read()
     tempC = page.decode("utf-8")
+    print("temp obtained")
     return tempC     
+
+def get_time(city):
+    url = "https://times.is/"+city
+    Upage = urlopen(url)
+    page = Upage.read()
+    time = page.decode("utf-8")
+    print(time)
+    return time
