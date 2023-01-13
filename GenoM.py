@@ -4,28 +4,32 @@ from os import environ
 from discord.ext import commands
 from dotenv import load_dotenv
 from urllib.request import urlopen
+
+# Importing helper file
 from Geno0 import *
 
 
 # Key Variable declarations
+
 handler= logging.FileHandler(filename='discord.log', encoding = 'utf-8', mode = 'w')
-# What are intents?
+
+'''
+What are intents?
+Intents allow the bot to subscribe to events
+Here we are subscribing to all events for the bot
+'''
 intent = discord.Intents.default()
 intent.message_content = True
 
 # Creating a Client/Command Instance (*+Function Name)
 Bot = commands.Bot(command_prefix='*', intents=intent)
 
-# Creating an Client Instance 
-#client = discord.Client(intents=intent) 
-
-# Obtaining the token from .env
+# Obtaining the token from .env (private file)
 load_dotenv() # Reading the .env file
 token = environ["TOKEN"]
 
 
 #Recall: async functions involves using "callback"
-
 '''
 Description: called when Geno is ready (? might need a better description)
 Parameters:no parameters
@@ -40,13 +44,13 @@ async def on_ready():
 async def Call(ctx):
     await ctx.send("Function Call works!")
     print(cities[0])
-'''
 
+
+'''
 Description: allows Geno to join a Voice Channel
 Parametrs:
     (1)ctx: short for context
 Returns: no return value
-
 '''
 #context:
 @Bot.command(name="VoiceOn", pass_context = True)
@@ -59,12 +63,10 @@ async def VoiceOn(ctx):
         await ctx.send("Error: You are not in a Voice Channel")
 
 '''
-
 Description: allows Geno to leave a Voice Channel
 Parametrs:
     (1)ctx: short for conetxt
 Returns: no return value
-
 '''
 @Bot.command(name="VoiceOff",pass_context = True)
 async def VoiceOff(ctx):
@@ -120,7 +122,7 @@ Proposed APIs to incorporate:
     (1) Google Calender API
     (2) Spotify API 
 ''' 
-
+# runs the bot 
 Bot.run(token, log_handler=handler, log_level=logging.DEBUG)
 
 

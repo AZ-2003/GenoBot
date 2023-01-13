@@ -37,6 +37,16 @@ Moving Forward: <ul>
   
 ***
 ## Entry3
+**Entry Date: 13th January 2023**
+Progress made:<ul>
+    <li> Tested the Google Calender API (test file to be posted) and set up a Google working environment</li>
+    <li> Lots of "behind the scenes" work involving the communication between the Discord & Google Calender API</li></ul>
+Key Takeaways:<ul>
+    <li> Heavy Security for using the Google Calender API which might be a possible challenge to go through in order to allow Geno to operate on the Calender( it is doable) </li> </ul>
+Moving Forward:<ul>
+    <li> Finish setting up and testing the Google Calender API and a helper function file for Geno to use </li></ul>  
+***
+
 
 
     
