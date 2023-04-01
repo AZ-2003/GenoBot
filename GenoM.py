@@ -43,7 +43,6 @@ async def on_ready():
 @Bot.command(name="Call", pass_context = True)
 async def Call(ctx):
     await ctx.send("Function Call works!")
-    print(cities[0])
 
 
 '''
